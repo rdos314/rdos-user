@@ -68,8 +68,8 @@ r????WLANG_i
 0
 17
 WString
-25
-"base;zlib;$(%watcom)/rh"
+32
+"kernel;base;zlib;$(%watcom)/rh"
 18
 WVList
 0
@@ -390,8 +390,8 @@ r????WLANG_i
 0
 89
 WString
-59
-"base;httpd;libtom;libtom\hash;jpeg;mad;zlib;$(%watcom)/rh"
+66
+"kernel;base;httpd;libtom;libtom\hash;jpeg;mad;zlib;$(%watcom)/rh"
 90
 MVState
 91
