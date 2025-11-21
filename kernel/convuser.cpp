@@ -44,7 +44,7 @@ int main()
     int Size;
     char *ptr;
     char *next;
-    TFile InFile("user.def");
+    TFile InFile("../../rdos-kernel/user.def");
     TFile OutFile("rdu.h", 0);
 
     Size = InFile.Read(Buffer, MAX_USER_SIZE);
