@@ -1,11 +1,11 @@
 # Ignore object files and dependent files
-.obj
-.exe
-.lib
-.mk
-.lb1
-.mk1
-.lk1
-.map
-.sym
-.err
+*.obj
+*.exe
+*.lib
+*.mk
+*.lb1
+*.mk1
+*.lk1
+*.map
+*.sym
+*.err
