@@ -140,8 +140,8 @@ n????WLANG_i
 0
 33
 WString
-47
-"\rdos-kernel;..\;$(%watcom)/h;$(%watcom)/h/nt"
+44
+"..\kernel;..\;$(%watcom)/h;$(%watcom)/h/nt"
 34
 MVState
 35
