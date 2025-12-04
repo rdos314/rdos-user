@@ -21,10 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: open-watcom/setup-watcom@2025-11-03-Build
+    - uses: open-watcom/setup-watcom@v0
       with:
+        tag: 2025-11-03-Build
         version: "2.0"
-        target:  "dos"
+        target:  "rdos"
     - run: |
         cmake -S . -B build -G "Watcom WMake" -D CMAKE_SYSTEM_NAME=RDOS
         cmake --build build
