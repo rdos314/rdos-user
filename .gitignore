@@ -9,3 +9,9 @@
 *.map
 *.sym
 *.err
+*.cmake
+bin/*
+CMakeFiles/*
+CMakeCache.txt
+*.o
+

@@ -31,7 +31,7 @@
 #
 ########################################################################*/
 
-#include <memory.h>
+#include <string.h>
 #include <stdio.h>
 
 #include "mp3tag.h"

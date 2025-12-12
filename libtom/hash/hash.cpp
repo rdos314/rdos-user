@@ -33,7 +33,7 @@
 #
 ########################################################################*/
 
-#include <memory.h>
+#include <string.h>
 
 #include "helper.h"
 #include "hash.h"

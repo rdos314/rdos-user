@@ -30,7 +30,7 @@
 ########################################################################*/
 
 #include <ctype.h>
-#include <memory.h>
+#include <string.h>
 #include "rdos.h"
 
 static const char base64_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

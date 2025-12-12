@@ -30,7 +30,7 @@
 ########################################################################*/
 
 #include <math.h>
-#include <memory.h>
+#include <string.h>
 
 #include "rdos.h"
 #include "datetime.h"
