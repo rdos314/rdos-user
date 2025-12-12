@@ -391,7 +391,7 @@ r????WLANG_i
 89
 WString
 66
-"kernel;base;httpd;libtom;libtom\hash;jpeg;mad;zlib;$(%watcom)/rh"
+"kernel;base;httpd;libtom;libtom/hash;jpeg;mad;zlib;$(%watcom)/rh"
 90
 MVState
 91

@@ -4,8 +4,8 @@ projectIdent
 VpeMain
 1
 WRect
-288
-303
+480
+170
 8320
 9216
 2
@@ -31,13 +31,13 @@ WRect
 0
 0
 5680
-4238
+4228
 0
 0
 9
 WFileName
 12
 classlib.tgt
-0
-17
+250
+265
 7
