@@ -27,7 +27,7 @@ jobs:
         version: "2.0"
         target:  "linux"
     - run: |
-        cmake -S . -B build -G "Watcom WMake" -D CMAKE_SYSTEM_NAME=RDOS
+        cmake -S . -B build -G "Watcom WMake" -DCMAKE_TOOLCHAIN_FILE=cmake/rdos.cmake
         cmake --build build
         
     - name: Upload RDOS build artifacts
