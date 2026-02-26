@@ -29,4 +29,11 @@ jobs:
     - run: |
         cmake -S . -B build -G "Watcom WMake" -D CMAKE_SYSTEM_NAME=RDOS
         cmake --build build
+        
+    - name: Upload RDOS build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: rdos-binaries
+        path: |
+          build/**/*.exe
     
