@@ -52,56 +52,12 @@
  */
 class TSection
 {
- /**
-  * Constructs a TSection object by initializing its name and appropriate synchronization mechanism.
-  *
-  * @param Name A null-terminated string specifying the name of the section.
-  *             It is truncated to 32 characters if longer.
-  * @return None
-  */
 public:
     TSection(const char *Name);
+    ~TSection();
 
- /**
-  * @brief Destructor for the TSection class.
-  *
-  * Cleans up resources associated with a TSection object. On systems
-  * where __RDOS__ is defined, it resets the associated RdosFutex
-  * to ensure proper cleanup.
-  */
- ~TSection();
-
- /**
-  * Acquires the section lock to ensure thread-safe access to the protected resource.
-  *
-  * This method blocks the calling thread if the lock is already held by another thread,
-  * until the lock becomes available. It is designed to ensure mutual exclusion in
-  * multi-threaded environments, providing a critical section where only one thread at
-  * a time can execute.
-  *
-  * Implementation details vary depending on the underlying platform. On RDOS systems,
-  * it uses a futex mechanism for synchronization. On POSIX-compliant systems, it
-  * employs a pthread mutex for locking.
-  *
-  * Make sure to pair each call to `Enter` with a corresponding call to `Leave`
-  * to release the lock and avoid deadlocks.
-  */
- void Enter() const;
-
- /**
-  * Releases the lock held by the current thread on the synchronization object.
-  *
-  * This method should be called after the thread has finished accessing the
-  * shared resource protected by the synchronization object. It is responsible
-  * for unlocking the mutex or futex, allowing other threads to proceed.
-  *
-  * On the RDOS platform, this method uses `RdosLeaveFutex` to release the futex.
-  * On other platforms, the method uses `pthread_mutex_unlock` to unlock the mutex.
-  *
-  * It is important to ensure that every call to `Enter` is eventually matched
-  * by a corresponding call to `Leave` to avoid deadlocks.
-  */
- void Leave() const;
+    void Enter() const;
+    void Leave() const;
 
 private:
 #ifdef __RDOS__
@@ -115,7 +71,7 @@ private:
   *
   * This structure is platform-specific and is typically enclosed as part of
   **/
- struct RdosFutex Futex;
+    struct RdosFutex Futex;
 #else
  /**
   * @brief Mutex used for thread synchronization.
@@ -129,7 +85,7 @@ private:
   *
   * @note This variable is only available on systems that do not use RDOS.
   */
- mutable pthread_mutex_t Mutex;
+    mutable pthread_mutex_t Mutex;
 #endif
  /**
   * @brief A fixed-size character array to store the name of a section.
