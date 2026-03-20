@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(test C)
+project(test CXX)
 set(CMAKE_EXECUTABLE_SUFFIX ".exe")
-add_executable(test test.c)
+add_executable(test test.cpp)
 
