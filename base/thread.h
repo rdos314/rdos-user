@@ -38,6 +38,8 @@
 #include <pthread.h>
 #endif
 
+void CreateThread(void (*Startup)(void *ptr), const char *ThreadName, void *ptr, int StackSize);
+
 class TSignalDevice;
 
 /**

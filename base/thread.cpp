@@ -42,6 +42,141 @@
 #include "thread.h"
 
 /**
+ * @brief Represents a thread that executes a user-defined startup routine.
+ *
+ * This class extends `TThread` and serves as a wrapper for a thread execution
+ * mechanism, allowing the user to specify a custom startup function and
+ * accompanying arguments. The thread is initialized with parameters such as
+ * thread name, stack size, and function to invoke upon execution.
+ */
+class TStartThread : public TThread
+{
+public:
+    /**
+     * @brief Constructs a thread instance and initializes the thread startup routine.
+     *
+     * This constructor sets up a thread to execute the provided startup routine
+     * with the specified properties, such as a thread name, a pointer to the thread
+     * execution context, and the stack size.
+     *
+     * @param Startup A function pointer representing the startup routine that
+     *        will be invoked when the thread is executed.
+     * @param ThreadName A string representing the name of the thread.
+     * @param ptr A pointer to the thread's execution context or associated data.
+     * @param StackSize An integer specifying the stack size for the thread.
+     */
+    TStartThread(void (*Startup)(void *ptr), const char *ThreadName, void *ptr, int StackSize);
+
+    /**
+     * @brief Destructor for the TStartThread class.
+     *
+     * Cleans up resources associated with a `TStartThread` instance. This method
+     * is called automatically when an object of the class goes out of scope
+     * or is explicitly deleted. The destructor ensures any specific resource
+     * management or cleanup logic defined for the `TStartThread` class is executed.
+     */
+    virtual ~TStartThread();
+
+    /**
+     * @brief Function pointer used as the entry routine for a thread.
+     *
+     * This pointer references a custom startup function that typically serves
+     * as the entry point for thread execution. The function is invoked with a
+     * single argument, which is a pointer to a user-defined data structure or
+     * object required for the thread's execution.
+     *
+     * @param ptr A pointer to the user-defined data or object passed to the
+     *            startup function for initialization or execution logic.
+     */
+    void (*FStartup)(void *ptr);
+
+    /**
+     * @brief Pointer to data for thread execution.
+     *
+     * This variable holds a generic pointer to data that is passed to the thread's
+     * execution routine. The value of this pointer is typically set during the initialization
+     * of a thread object and is subsequently used by the thread's execution function.
+     *
+     * It is commonly utilized as a mechanism to pass user-defined data or context information
+     * to the thread logic defined in the `Execute` method or via the startup routine.
+     */
+    void *FPtr;
+    /**
+     * @brief Executes the startup routine for the thread.
+     *
+     * Calls the function pointer `FStartup` with the argument `FPtr`.
+     * This method serves as the primary execution routine for the thread
+     * encapsulated by the `TStartThread` class. Once execution is complete,
+     * the current instance of `TStartThread` is deleted to free resources.
+     */
+    void Execute();
+};
+
+/**
+ * @brief Constructs a TStartThread object and initializes a new thread.
+ *
+ * This constructor assigns the thread startup routine and associated data pointer,
+ * and invokes the `Start` method with the specified thread name and stack size.
+ *
+ * @param Startup A function pointer representing the startup routine for the thread.
+ * @param ThreadName A string denoting the name of the thread.
+ * @param ptr A pointer to the data to be passed to the thread startup routine.
+ * @param StackSize An integer specifying the stack size for the thread.
+ */
+TStartThread::TStartThread(void (*Startup)(void *ptr), const char *ThreadName, void *ptr, int StackSize)
+{
+    FStartup = Startup;
+    FPtr = ptr;
+    Start(ThreadName, StackSize);
+}
+
+/**
+ * @brief Destructor for the `TStartThread` class.
+ *
+ * Cleans up resources associated with the `TStartThread` instance.
+ * This destructor ensures that the thread object is properly
+ * finalized when it goes out of scope or is explicitly deleted.
+ */
+TStartThread::~TStartThread()
+{
+}
+
+/**
+ * @brief Executes the thread's main function and self-destroys the thread object.
+ *
+ * Invokes the function pointer provided during the thread's initialization,
+ * passing the associated pointer as an argument. Once the function execution
+ * is complete, the thread object deletes itself to free associated resources.
+ *
+ * @note This method is responsible for calling the specified startup function
+ * and managing the object's lifecycle. Ensure that the object is not accessed
+ * after the `Execute` method is called.
+ */
+void TStartThread::Execute()
+{
+    (*(FStartup))(FPtr);
+    delete this;
+}
+
+/**
+ * @brief Creates and initializes a new thread.
+ *
+ * Allocates a new instance of `TStartThread` with the specified startup function,
+ * thread name, context pointer, and stack size. This function serves as a helper
+ * to set up and prepare a thread for execution.
+ *
+ * @param Startup A pointer to a function that will be executed as the thread's entry point.
+ *                The function should accept a single `void*` argument for context.
+ * @param ThreadName A string representing the name of the thread. Intended for debugging or logging purposes.
+ * @param ptr A pointer to the context or data to be passed to the thread's startup routine.
+ * @param StackSize An integer specifying the stack size for the thread.
+ */
+void CreateThread(void (*Startup)(void *ptr), const char *ThreadName, void *ptr, int StackSize)
+{
+    TStartThread *thread = new TStartThread(Startup, ThreadName, ptr, StackSize);
+}
+
+/**
  * @brief Entry point for starting a thread execution.
  *
  * This function serves as the initial entry function for a thread.
